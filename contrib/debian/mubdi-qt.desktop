@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=6.7.7
+Name=MuBdI Core
+Comment=MuBdI P2P DEP System
+Comment[fr]=MuBdI, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=MuBdI, eşten eşe kriptografik sanal para birimi
+Exec=mubdi-qt %u
+Terminal=false
+Type=Application
+Icon=mubdi128
+MimeType=x-scheme-handler/mubdi;
+Categories=Office;Finance;
+StartupWMClass=MuBdI-qt

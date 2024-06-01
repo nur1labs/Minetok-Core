@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=MuBdI Core
+Comment=MuBdI Core QT main network
+GenericName=MuBdI BlockStream QT client main network
+Exec=mubdi-core.qt %u
+Terminal=false
+Type=Application
+Icon=${SNAP}/share/pixmaps/mubdi.png
+MimeType=x-scheme-handler/mub;
+Categories=X-Office;X-Finance;
+Keywords=internet;mubdi;mub;core;wallet;qt;main;snap;launchpad;crypto;digital;currency;coin;dep;
+Version=1.0

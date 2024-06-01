@@ -1,0 +1,745 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/mubdi-qt
+EXTRA_LIBRARIES += qt/libmubdiqt.a
+
+# mubdi qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/mubdi/forms/loadingdialog.ui \
+  qt/mubdi/forms/snackbar.ui \
+  qt/mubdi/forms/navmenuwidget.ui \
+  qt/mubdi/forms/lockunlock.ui \
+  qt/mubdi/forms/expandablebutton.ui \
+  qt/mubdi/forms/receivedialog.ui \
+  qt/mubdi/forms/balancebubble.ui \
+  qt/mubdi/forms/topbar.ui \
+  qt/mubdi/forms/txrow.ui \
+  qt/mubdi/forms/dashboardwidget.ui \
+  qt/mubdi/forms/addresslabelrow.ui \
+  qt/mubdi/forms/contactdropdownrow.ui \
+  qt/mubdi/forms/mninfodialog.ui \
+  qt/mubdi/forms/optionbutton.ui \
+  qt/mubdi/forms/masternodewizarddialog.ui \
+  qt/mubdi/forms/mnrow.ui \
+  qt/mubdi/forms/masternodeswidget.ui \
+  qt/mubdi/forms/myaddressrow.ui \
+  qt/mubdi/forms/csrow.ui \
+  qt/mubdi/forms/sendmemodialog.ui \
+  qt/mubdi/forms/sendchangeaddressdialog.ui \
+  qt/mubdi/forms/sendconfirmdialog.ui \
+  qt/mubdi/forms/sendcustomfeedialog.ui \
+  qt/mubdi/forms/sendmultirow.ui \
+  qt/mubdi/forms/send.ui \
+  qt/mubdi/forms/addnewcontactdialog.ui \
+  qt/mubdi/forms/requestdialog.ui \
+  qt/mubdi/forms/receivewidget.ui \
+  qt/mubdi/forms/tooltipmenu.ui \
+  qt/mubdi/forms/addresseswidget.ui \
+  qt/mubdi/forms/defaultdialog.ui \
+  qt/mubdi/forms/coldstakingwidget.ui \
+  qt/mubdi/forms/proposalcard.ui \
+  qt/mubdi/forms/mnselectiondialog.ui \
+  qt/mubdi/forms/votedialog.ui \
+  qt/mubdi/forms/createproposaldialog.ui \
+  qt/mubdi/forms/proposalinfodialog.ui \
+  qt/mubdi/forms/governancewidget.ui \
+  qt/mubdi/settings/forms/settingsbackupwallet.ui \
+  qt/mubdi/settings/forms/settingsexportcsv.ui \
+  qt/mubdi/settings/forms/settingsmubtoolwidget.ui \
+  qt/mubdi/settings/forms/settingsconsolewidget.ui \
+  qt/mubdi/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/mubdi/settings/forms/settingsfaqwidget.ui \
+  qt/mubdi/settings/forms/settingsinformationwidget.ui \
+  qt/mubdi/settings/forms/settingsmainoptionswidget.ui \
+  qt/mubdi/settings/forms/settingssignmessagewidgets.ui \
+  qt/mubdi/settings/forms/settingswalletoptionswidget.ui \
+  qt/mubdi/settings/forms/settingswalletrepairwidget.ui \
+  qt/mubdi/settings/forms/settingswidget.ui \
+  qt/mubdi/forms/welcomecontentwidget.ui \
+  qt/mubdi/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_mubdiaddressvalidator.cpp \
+  qt/mubdi/moc_mubdigui.cpp \
+  qt/moc_mubdiunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_rpcexecutor.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/mubdi/moc_loadingdialog.cpp \
+  qt/mubdi/moc_pwidget.cpp \
+  qt/mubdi/moc_focuseddialog.cpp \
+  qt/mubdi/moc_snackbar.cpp \
+  qt/mubdi/moc_navmenuwidget.cpp \
+  qt/mubdi/moc_lockunlock.cpp \
+  qt/mubdi/moc_expandablebutton.cpp \
+  qt/mubdi/moc_furabstractlistitemdelegate.cpp \
+  qt/mubdi/moc_receivedialog.cpp \
+  qt/mubdi/moc_pfborderimage.cpp \
+  qt/mubdi/moc_topbar.cpp \
+  qt/mubdi/moc_txrow.cpp \
+  qt/mubdi/moc_dashboardwidget.cpp \
+  qt/mubdi/moc_addresslabelrow.cpp \
+  qt/mubdi/moc_contactdropdownrow.cpp \
+  qt/mubdi/moc_mninfodialog.cpp \
+  qt/mubdi/moc_optionbutton.cpp \
+  qt/mubdi/moc_coldstakingmodel.cpp \
+  qt/mubdi/moc_mnmodel.cpp \
+  qt/mubdi/moc_masternodewizarddialog.cpp \
+  qt/mubdi/moc_mnrow.cpp \
+  qt/mubdi/moc_masternodeswidget.cpp \
+  qt/mubdi/moc_myaddressrow.cpp \
+  qt/mubdi/moc_csrow.cpp \
+  qt/mubdi/moc_contactsdropdown.cpp \
+  qt/mubdi/moc_sendchangeaddressdialog.cpp \
+  qt/mubdi/moc_sendconfirmdialog.cpp \
+  qt/mubdi/moc_sendcustomfeedialog.cpp \
+  qt/mubdi/moc_sendmemodialog.cpp \
+  qt/mubdi/moc_sendmultirow.cpp \
+  qt/mubdi/moc_send.cpp \
+  qt/mubdi/moc_addnewcontactdialog.cpp \
+  qt/mubdi/moc_requestdialog.cpp \
+  qt/mubdi/moc_receivewidget.cpp \
+  qt/mubdi/moc_tooltipmenu.cpp \
+  qt/mubdi/moc_addresseswidget.cpp \
+  qt/mubdi/moc_defaultdialog.cpp \
+  qt/mubdi/moc_coldstakingwidget.cpp \
+  qt/mubdi/moc_proposalcard.cpp \
+  qt/mubdi/moc_mnselectiondialog.cpp \
+  qt/mubdi/moc_votedialog.cpp \
+  qt/mubdi/moc_createproposaldialog.cpp \
+  qt/mubdi/moc_proposalinfodialog.cpp \
+  qt/mubdi/moc_governancewidget.cpp \
+  qt/mubdi/settings/moc_settingsbackupwallet.cpp \
+  qt/mubdi/settings/moc_settingsexportcsv.cpp \
+  qt/mubdi/settings/moc_settingsmubtoolwidget.cpp \
+  qt/mubdi/settings/moc_settingsconsolewidget.cpp \
+  qt/mubdi/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/mubdi/settings/moc_settingsfaqwidget.cpp \
+  qt/mubdi/settings/moc_settingsinformationwidget.cpp \
+  qt/mubdi/settings/moc_settingsmainoptionswidget.cpp \
+  qt/mubdi/settings/moc_settingssignmessagewidgets.cpp \
+  qt/mubdi/settings/moc_settingswalletoptionswidget.cpp \
+  qt/mubdi/settings/moc_settingswalletrepairwidget.cpp \
+  qt/mubdi/settings/moc_settingswidget.cpp \
+  qt/mubdi/moc_welcomecontentwidget.cpp \
+  qt/mubdi/moc_splash.cpp
+
+MUBDI_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/mubdi.moc \
+  qt/intro.moc
+
+QT_QRC_CPP = qt/qrc_mubdi.cpp
+QT_QRC = qt/mubdi.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_mubdi_locale.cpp
+QT_QRC_LOCALE = qt/mubdi_locale.qrc
+
+MUBDI_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/mubdiaddressvalidator.h \
+  qt/mubdi/mubdigui.h \
+  qt/mubdiunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsmodel.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/rpcexecutor.h \
+  qt/trafficgraphwidget.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/mubdi/prunnable.h \
+  qt/mubdi/pfborderimage.h \
+  qt/mubdi/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/mubdi/pwidget.h \
+  qt/mubdi/focuseddialog.h \
+  qt/mubdi/guitransactionsutils.h \
+  qt/mubdi/snackbar.h \
+  qt/mubdi/navmenuwidget.h \
+  qt/mubdi/lockunlock.h \
+  qt/mubdi/receivedialog.h \
+  qt/mubdi/furlistrow.h \
+  qt/mubdi/furabstractlistitemdelegate.h \
+  qt/mubdi/txviewholder.h \
+  qt/mubdi/qtutils.h \
+  qt/mubdi/expandablebutton.h \
+  qt/mubdi/balancebubble.h \
+  qt/mubdi/topbar.h \
+  qt/mubdi/txrow.h \
+  qt/mubdi/addressholder.h \
+  qt/mubdi/addressfilterproxymodel.h \
+  qt/mubdi/dashboardwidget.h \
+  qt/mubdi/addresslabelrow.h \
+  qt/mubdi/contactdropdownrow.h \
+  qt/mubdi/mninfodialog.h \
+  qt/mubdi/optionbutton.h \
+  qt/mubdi/coldstakingmodel.h \
+  qt/mubdi/mnmodel.h \
+  qt/mubdi/masternodewizarddialog.h \
+  qt/mubdi/mnrow.h \
+  qt/mubdi/masternodeswidget.h \
+  qt/mubdi/myaddressrow.h \
+  qt/mubdi/csrow.h \
+  qt/mubdi/contactsdropdown.h \
+  qt/mubdi/sendchangeaddressdialog.h \
+  qt/mubdi/sendconfirmdialog.h \
+  qt/mubdi/sendcustomfeedialog.h \
+  qt/mubdi/sendmemodialog.h \
+  qt/mubdi/sendmultirow.h \
+  qt/mubdi/send.h \
+  qt/mubdi/addnewcontactdialog.h \
+  qt/mubdi/requestdialog.h \
+  qt/mubdi/receivewidget.h \
+  qt/mubdi/tooltipmenu.h \
+  qt/mubdi/addresseswidget.h \
+  qt/mubdi/defaultdialog.h \
+  qt/mubdi/coldstakingwidget.h \
+  qt/mubdi/governancemodel.h \
+  qt/mubdi/proposalcard.h \
+  qt/mubdi/mnselectiondialog.h \
+  qt/mubdi/votedialog.h \
+  qt/mubdi/createproposaldialog.h \
+  qt/mubdi/proposalinfodialog.h \
+  qt/mubdi/governancewidget.h \
+  qt/mubdi/settings/settingsbackupwallet.h \
+  qt/mubdi/settings/settingsexportcsv.h \
+  qt/mubdi/settings/settingsmubtoolwidget.h \
+  qt/mubdi/settings/settingsconsolewidget.h \
+  qt/mubdi/settings/settingsdisplayoptionswidget.h \
+  qt/mubdi/settings/settingsfaqwidget.h \
+  qt/mubdi/settings/settingsinformationwidget.h \
+  qt/mubdi/settings/settingsmainoptionswidget.h \
+  qt/mubdi/settings/settingssignmessagewidgets.h \
+  qt/mubdi/settings/settingswalletoptionswidget.h \
+  qt/mubdi/settings/settingswalletrepairwidget.h \
+  qt/mubdi/settings/settingswidget.h \
+  qt/mubdi/welcomecontentwidget.h \
+  qt/mubdi/splash.h
+
+RES_ICONS = \
+  qt/res/icons/mubdi.ico \
+  qt/res/icons/mubdi.png \
+  qt/res/icons/mubdi_arin.ico \
+  qt/res/icons/mubdi_arin.png \
+  qt/res/icons/mubdi_testnet.ico \
+  qt/res/icons/mubdi_testnet.png \
+  qt/res/icons/mubdi_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
+  qt/mubdi/res/img/bg-dashboard-banner.png \
+  qt/mubdi/res/img/bg-multi-number-dark.svg \
+  qt/mubdi/res/img/ic-check-locked.svg \
+  qt/mubdi/res/img/ic-nav-address.svg \
+  qt/mubdi/res/img/ic-update.svg \
+  qt/mubdi/res/img/bg-multi-number.svg \
+  qt/mubdi/res/img/ic-check-mint-off.svg \
+  qt/mubdi/res/img/ic-nav-cold-staking.svg \
+  qt/mubdi/res/img/ic-nav-cold-staking-active.svg \
+  qt/mubdi/res/img/ic-nav-dashboard-active.svg \
+  qt/mubdi/res/img/ic-wallet-status-locked.svg \
+  qt/mubdi/res/img/bg-splash.svg \
+  qt/mubdi/res/img/bg-splash.png \
+  qt/mubdi/res/img/bg-splash-arin.svg \
+  qt/mubdi/res/img/bg-splash-arin.png \
+  qt/mubdi/res/img/ic-check-mint.svg \
+  qt/mubdi/res/img/ic-nav-dashboard-hover.svg \
+  qt/mubdi/res/img/ic-wallet-status-staking.svg \
+  qt/mubdi/res/img/ic-check-peers-off.svg \
+  qt/mubdi/res/img/ic-nav-dashboard.svg \
+  qt/mubdi/res/img/ic-wallet-status-unlocked.svg \
+  qt/mubdi/res/img/ic-check-peers.svg \
+  qt/mubdi/res/img/ic-nav-master-active.svg \
+  qt/mubdi/res/img/ic-watch-password-white.svg \
+  qt/mubdi/res/img/bg-welcome-container.jpg \
+  qt/mubdi/res/img/bg-welcome-container.png \
+  qt/mubdi/res/img/bg-welcome-container.svg \
+  qt/mubdi/res/img/bg-welcome-container@2x.png \
+  qt/mubdi/res/img/bg-welcome-container@3x.png \
+  qt/mubdi/res/img/ic-check-staking-off.svg \
+  qt/mubdi/res/img/ic-nav-master-hover.svg \
+  qt/mubdi/res/img/ic-watch-password.svg \
+  qt/mubdi/res/img/bg-welcome.jpg \
+  qt/mubdi/res/img/bg-welcome.svg \
+  qt/mubdi/res/img/bg-welcome@2x.jpg \
+  qt/mubdi/res/img/bg-welcome@3x.jpg \
+  qt/mubdi/res/img/bg-welcome.png \
+  qt/mubdi/res/img/ic-check-staking.svg \
+  qt/mubdi/res/img/ic-nav-master.svg \
+  qt/mubdi/res/img/img-dashboard-banner.jpg \
+  qt/mubdi/res/img/btn-radio-active.svg \
+  qt/mubdi/res/img/ic-check-sync-off.svg \
+  qt/mubdi/res/img/ic-nav-privacy-active.svg \
+  qt/mubdi/res/img/img-empty-contacts.svg \
+  qt/mubdi/res/img/btn-radio-off.svg \
+  qt/mubdi/res/img/ic-check-sync.png \
+  qt/mubdi/res/img/ic-nav-privacy-hover.svg \
+  qt/mubdi/res/img/img-empty-dark-contacts.svg \
+  qt/mubdi/res/img/ic-contact-arrow-down.svg \
+  qt/mubdi/res/img/ic-contact-arrow-down-white.svg \
+  qt/mubdi/res/img/ic-check-sync.svg \
+  qt/mubdi/res/img/ic-check-faq.svg \
+  qt/mubdi/res/img/ic-nav-privacy.svg \
+  qt/mubdi/res/img/img-empty-dark-error.svg \
+  qt/mubdi/res/img/ic-add-label.svg \
+  qt/mubdi/res/img/ic-pending.svg \
+  qt/mubdi/res/img/ic-check-theme-dark.svg \
+  qt/mubdi/res/img/ic-nav-receive-active.svg \
+  qt/mubdi/res/img/img-empty-dark-masternode.svg \
+  qt/mubdi/res/img/ic-add-liliac.svg \
+  qt/mubdi/res/img/ic-check-theme-light.svg \
+  qt/mubdi/res/img/ic-nav-receive-hover.svg \
+  qt/mubdi/res/img/img-empty-dark-multisend.svg \
+  qt/mubdi/res/img/ic-add-purple.svg \
+  qt/mubdi/res/img/ic-check-white.svg \
+  qt/mubdi/res/img/ic-nav-receive.svg \
+  qt/mubdi/res/img/img-empty-dark-peers.svg \
+  qt/mubdi/res/img/ic-add.svg \
+  qt/mubdi/res/img/ic-check.svg \
+  qt/mubdi/res/img/ic-nav-send-active.svg \
+  qt/mubdi/res/img/img-empty-dark-staking-off.svg \
+  qt/mubdi/res/img/img-empty-dark-staking-on.svg \
+  qt/mubdi/res/img/ic-address-book-grey.svg \
+  qt/mubdi/res/img/ic-chevron-left.svg \
+  qt/mubdi/res/img/ic-nav-send-hover.svg \
+  qt/mubdi/res/img/img-empty-dark-transactions.svg \
+  qt/mubdi/res/img/ic-address-book-white.svg \
+  qt/mubdi/res/img/ic-chevron-right.svg \
+  qt/mubdi/res/img/ic-chevron-right-liliac.svg \
+  qt/mubdi/res/img/ic-nav-send.svg \
+  qt/mubdi/res/img/img-empty-error.svg \
+  qt/mubdi/res/img/ic-address-book.svg \
+  qt/mubdi/res/img/ic-clear-liliac.svg \
+  qt/mubdi/res/img/ic-nav-settings-active.svg \
+  qt/mubdi/res/img/img-empty-masternode.svg \
+  qt/mubdi/res/img/ic-address-send-white.svg \
+  qt/mubdi/res/img/ic-clear-purple.svg \
+  qt/mubdi/res/img/ic-nav-settings-hover.svg \
+  qt/mubdi/res/img/img-empty-multisend.svg \
+  qt/mubdi/res/img/ic-address-send.svg \
+  qt/mubdi/res/img/ic-close-white.svg \
+  qt/mubdi/res/img/ic-nav-settings.svg \
+  qt/mubdi/res/img/img-empty-peers.svg \
+  qt/mubdi/res/img/img-empty-privacy.svg \
+  qt/mubdi/res/img/img-empty-privacy-dark.svg \
+  qt/mubdi/res/img/ic-arrow-drop-down-white.svg \
+  qt/mubdi/res/img/ic-close.svg \
+  qt/mubdi/res/img/ic-radio-liliac-on.svg \
+  qt/mubdi/res/img/img-empty-staking-off.svg \
+  qt/mubdi/res/img/ic-arrow-drop-down.svg \
+  qt/mubdi/res/img/ic-coin-mubdi.svg \
+  qt/mubdi/res/img/ic-receive-off.svg \
+  qt/mubdi/res/img/img-empty-staking-on.svg \
+  qt/mubdi/res/img/ic-arrow-drop-up-white.svg \
+  qt/mubdi/res/img/ic-coin-zmubdi.png \
+  qt/mubdi/res/img/ic-receive-on.svg \
+  qt/mubdi/res/img/img-empty-transactions.svg \
+  qt/mubdi/res/img/ic-arrow-drop-up.svg \
+  qt/mubdi/res/img/ic-coin-zmubdi.svg \
+  qt/mubdi/res/img/ic-received.svg \
+  qt/mubdi/res/img/img-logo-mubdi.png \
+  qt/mubdi/res/img/ic-arrow-drop-white-down.svg \
+  qt/mubdi/res/img/ic-combo-box.svg \
+  qt/mubdi/res/img/ic-send.svg \
+  qt/mubdi/res/img/img-logo-mubdi@2x.png \
+  qt/mubdi/res/img/ic-arrow-purple-down.svg \
+  qt/mubdi/res/img/ic-connect.svg \
+  qt/mubdi/res/img/ic-submenu-lock.svg \
+  qt/mubdi/res/img/img-logo-mubdi@3x.png \
+  qt/mubdi/res/img/img-logo-mubdi.svg \
+  qt/mubdi/res/img/ic-arrow-right-white.svg \
+  qt/mubdi/res/img/ic-arrow-left-white.svg \
+  qt/mubdi/res/img/ic-arrow-left.svg \
+  qt/mubdi/res/img/ic-copy-liliac.svg \
+  qt/mubdi/res/img/ic-submenu-staking.svg \
+  qt/mubdi/res/img/img-nav-logo-mubdi.png \
+  qt/mubdi/res/img/ic-arrow-right.svg \
+  qt/mubdi/res/img/ic-copy.svg \
+  qt/mubdi/res/img/ic-copy-big.svg \
+  qt/mubdi/res/img/ic-copy-big-white.svg \
+  qt/mubdi/res/img/ic-submenu-unlock.svg \
+  qt/mubdi/res/img/img-nav-logo.png \
+  qt/mubdi/res/img/ic-arrow-white-left.svg \
+  qt/mubdi/res/img/ic-exit.svg \
+  qt/mubdi/res/img/ic-switch-liliac-on.svg \
+  qt/mubdi/res/img/img-nav-logo.svg \
+  qt/mubdi/res/img/ic-arrow-white-right.svg \
+  qt/mubdi/res/img/ic-expand.svg \
+  qt/mubdi/res/img/ic-switch-off.svg \
+  qt/mubdi/res/img/img-qr-test-big.png \
+  qt/mubdi/res/img/ic-check-active.svg \
+  qt/mubdi/res/img/ic-folder.svg \
+  qt/mubdi/res/img/ic-switch-on.svg \
+  qt/mubdi/res/img/img-qr-test.png \
+  qt/mubdi/res/img/ic-check-box.svg \
+  qt/mubdi/res/img/ic-check-box-light.svg \
+  qt/mubdi/res/img/ic-check-box-dark-active.svg \
+  qt/mubdi/res/img/ic-check-box-indeterminate.svg \
+  qt/mubdi/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/mubdi/res/img/ic-label-liliac.svg \
+  qt/mubdi/res/img/ic-transaction-warning.svg \
+  qt/mubdi/res/img/ic-transaction-mint.svg \
+  qt/mubdi/res/img/ic-transaction-mint-inactive.svg \
+  qt/mubdi/res/img/ic-check-cold-staking.svg \
+  qt/mubdi/res/img/ic-check-cold-staking-off.svg \
+  qt/mubdi/res/img/ic-check-cold-staking-enabled.svg \
+  qt/mubdi/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/mubdi/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/mubdi/res/img/img-qr.svg \
+  qt/mubdi/res/img/ic-check-connect-off.svg \
+  qt/mubdi/res/img/ic-check-tor-off.svg \
+  qt/mubdi/res/img/ic-check-tor.svg \
+  qt/mubdi/res/img/ic-label.svg \
+  qt/mubdi/res/img/ic-transaction-received.svg \
+  qt/mubdi/res/img/dark/ic-transaction-received.svg \
+  qt/mubdi/res/img/dark/ic-transaction-warning.svg \
+  qt/mubdi/res/img/dark/ic-transaction-mint.svg \
+  qt/mubdi/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/mubdi/res/img/ic-transaction-received-inactive.svg \
+  qt/mubdi/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/mubdi/res/img/img-welcome-step1.png \
+  qt/mubdi/res/img/ic-check-connect.svg \
+  qt/mubdi/res/img/ic-menu-hover.svg \
+  qt/mubdi/res/img/ic-transaction-sent.svg \
+  qt/mubdi/res/img/ic-transaction-sent-inactive.svg \
+  qt/mubdi/res/img/dark/ic-transaction-sent.svg \
+  qt/mubdi/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/mubdi/res/img/img-welcome-step2.png \
+  qt/mubdi/res/img/ic-check-dark.svg \
+  qt/mubdi/res/img/ic-mint.svg \
+  qt/mubdi/res/img/ic-transaction-staked.svg \
+  qt/mubdi/res/img/ic-transaction-staked-inactive.svg \
+  qt/mubdi/res/img/dark/ic-transaction-staked.svg \
+  qt/mubdi/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/mubdi/res/img/img-welcome-step3.png \
+  qt/mubdi/res/img/ic-check-liliac-on.svg \
+  qt/mubdi/res/img/ic-nav-address-active.svg \
+  qt/mubdi/res/img/ic-unlock-staking.svg \
+  qt/mubdi/res/img/img-welcome-step4.png \
+  qt/mubdi/res/img/ic-check-locked-off.svg \
+  qt/mubdi/res/img/ic-nav-address-hover.svg \
+  qt/mubdi/res/img/ic-update-liliac.svg \
+  qt/mubdi/res/img/ic-arrow-drop-down-purple.svg \
+  qt/mubdi/res/img/ic-arrow-drop-up-purple.svg \
+  qt/mubdi/res/img/ic-check-liliac-indeterminate.svg \
+  qt/mubdi/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/mubdi/res/img/ic-transaction-stake-delegated.svg \
+  qt/mubdi/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/mubdi/res/img/ic-transaction-stake-hot.svg \
+  qt/mubdi/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/mubdi/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/mubdi/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/mubdi/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/mubdi/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/mubdi/res/img/ic-transaction-cs-contract.svg \
+  qt/mubdi/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/mubdi/res/img/ic-check-box-indeterminate.svg \
+  qt/mubdi/res/img/ic-information.svg \
+  qt/mubdi/res/img/ic-information-hover.svg \
+  qt/mubdi/res/img/ani-loading-dark.gif \
+  qt/mubdi/res/img/ani-loading.gif \
+  qt/mubdi/res/img/ic-check-vote.svg \
+  qt/mubdi/res/img/ic-check-vote-active.svg \
+  qt/mubdi/res/img/ic-check-vote-dark.svg \
+  qt/mubdi/res/img/ic-check-vote-active-dark.svg \
+  qt/mubdi/res/img/ic-check-block.svg \
+  qt/mubdi/res/img/ic-filter.svg \
+  qt/mubdi/res/img/ic-link.svg \
+  qt/mubdi/res/img/ic-nav-governance.svg \
+  qt/mubdi/res/img/ic-nav-governance-active.svg \
+  qt/mubdi/res/img/ic-nav-governance-hover.svg \
+  qt/mubdi/res/img/ic-time.svg \
+  qt/mubdi/res/img/ic-link-hover.svg \
+  qt/mubdi/res/img/img-empty-governance.svg \
+  qt/mubdi/res/img/img-empty-dark-governance.svg
+
+MUBDI_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/mubdiaddressvalidator.cpp \
+  qt/mubdi/mubdigui.cpp \
+  qt/mubdiunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/rpcexecutor.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+MUBDI_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+MUBDI_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/mubdi/loadingdialog.cpp \
+  qt/mubdi/pwidget.cpp \
+  qt/mubdi/focuseddialog.cpp \
+  qt/mubdi/guitransactionsutils.cpp \
+  qt/mubdi/snackbar.cpp \
+  qt/mubdi/navmenuwidget.cpp \
+  qt/mubdi/lockunlock.cpp \
+  qt/mubdi/receivedialog.cpp \
+  qt/mubdi/furabstractlistitemdelegate.cpp \
+  qt/mubdi/txviewholder.cpp \
+  qt/mubdi/qtutils.cpp \
+  qt/mubdi/expandablebutton.cpp \
+  qt/mubdi/balancebubble.cpp \
+  qt/mubdi/topbar.cpp \
+  qt/mubdi/txrow.cpp \
+  qt/mubdi/addressholder.cpp \
+  qt/mubdi/addressfilterproxymodel.cpp \
+  qt/mubdi/dashboardwidget.cpp \
+  qt/mubdi/addresslabelrow.cpp \
+  qt/mubdi/contactdropdownrow.cpp \
+  qt/mubdi/contactsdropdown.cpp \
+  qt/mubdi/optionbutton.cpp \
+  qt/mubdi/mninfodialog.cpp \
+  qt/mubdi/coldstakingmodel.cpp \
+  qt/mubdi/mnmodel.cpp \
+  qt/mubdi/masternodewizarddialog.cpp \
+  qt/mubdi/mnrow.cpp \
+  qt/mubdi/masternodeswidget.cpp \
+  qt/mubdi/myaddressrow.cpp \
+  qt/mubdi/csrow.cpp \
+  qt/mubdi/sendchangeaddressdialog.cpp \
+  qt/mubdi/sendconfirmdialog.cpp \
+  qt/mubdi/sendcustomfeedialog.cpp \
+  qt/mubdi/sendmemodialog.cpp \
+  qt/mubdi/sendmultirow.cpp \
+  qt/mubdi/send.cpp \
+  qt/mubdi/addnewcontactdialog.cpp \
+  qt/mubdi/requestdialog.cpp \
+  qt/mubdi/receivewidget.cpp \
+  qt/mubdi/tooltipmenu.cpp \
+  qt/mubdi/addresseswidget.cpp \
+  qt/mubdi/defaultdialog.cpp \
+  qt/mubdi/coldstakingwidget.cpp \
+  qt/mubdi/governancemodel.cpp \
+  qt/mubdi/proposalcard.cpp \
+  qt/mubdi/mnselectiondialog.cpp \
+  qt/mubdi/votedialog.cpp \
+  qt/mubdi/createproposaldialog.cpp \
+  qt/mubdi/proposalinfodialog.cpp \
+  qt/mubdi/governancewidget.cpp \
+  qt/mubdi/settings/settingsbackupwallet.cpp \
+  qt/mubdi/settings/settingsexportcsv.cpp \
+  qt/mubdi/settings/settingsmubtoolwidget.cpp \
+  qt/mubdi/settings/settingsconsolewidget.cpp \
+  qt/mubdi/settings/settingsdisplayoptionswidget.cpp \
+  qt/mubdi/settings/settingsfaqwidget.cpp \
+  qt/mubdi/settings/settingsinformationwidget.cpp \
+  qt/mubdi/settings/settingsmainoptionswidget.cpp \
+  qt/mubdi/settings/settingssignmessagewidgets.cpp \
+  qt/mubdi/settings/settingswalletoptionswidget.cpp \
+  qt/mubdi/settings/settingswalletrepairwidget.cpp \
+  qt/mubdi/settings/settingswidget.cpp \
+  qt/mubdi/welcomecontentwidget.cpp \
+  qt/mubdi/splash.cpp
+
+
+MUBDI_QT_CPP = $(MUBDI_QT_BASE_CPP)
+if TARGET_WINDOWS
+MUBDI_QT_CPP += $(MUBDI_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+MUBDI_QT_CPP += $(MUBDI_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/mubdi/res/css/style_dark.css \
+  qt/mubdi/res/css/style_light.css
+
+MUBDI_RC = qt/res/mubdi-qt-res.rc
+
+MUBDI_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libmubdiqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(MUBDI_INCLUDES) $(MUBDI_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libmubdiqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libmubdiqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libmubdiqt_a_SOURCES = $(MUBDI_QT_CPP) $(MUBDI_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libmubdiqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libmubdiqt_a_OBJECTS) $(qt_mubdi_qt_OBJECTS) : | $(QT_MOC)
+
+# mubdi-qt binary #
+qt_mubdi_qt_CPPFLAGS = $(AM_CPPFLAGS) $(MUBDI_INCLUDES) $(MUBDI_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_mubdi_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_mubdi_qt_SOURCES = qt/mubdi.cpp
+if TARGET_DARWIN
+  qt_mubdi_qt_SOURCES += $(MUBDI_MM)
+endif
+if TARGET_WINDOWS
+  qt_mubdi_qt_SOURCES += $(MUBDI_RC)
+endif
+qt_mubdi_qt_LDADD = qt/libmubdiqt.a $(LIBMUBDI_SERVER)
+if ENABLE_WALLET
+qt_mubdi_qt_LDADD += $(LIBMUBDI_UTIL) $(LIBMUBDI_WALLET)
+endif
+if ENABLE_ZMQ
+qt_mubdi_qt_LDADD += $(LIBMUBDI_ZMQ) $(ZMQ_LIBS)
+endif
+qt_mubdi_qt_LDADD += $(LIBMUBDI_CLI) $(LIBMUBDI_COMMON) $(LIBMUBDI_UTIL) $(LIBMUBDI_CRYPTO) $(LIBUNIVALUE) $(LIBMUBDI_AIRLOGIC) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(MINIUPNPC_LIBS) $(NATPMP_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+qt_mubdi_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_mubdi_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/mubdistrings.cpp: $(libmubdi_server_a_SOURCES) $(libmubdi_wallet_a_SOURCES) $(libmubdi_common_a_SOURCES) $(libmubdi_zmq_a_SOURCES) $(libmubdi_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/mubdistrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(MUBDI_QT_BASE_CPP) qt/mubdi.cpp $(MUBDI_QT_WINDOWS_CPP) $(MUBDI_QT_WALLET_CPP) $(MUBDI_QT_H) $(MUBDI_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/mubdi_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name mubdi_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name mubdi $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libmubdiqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/mubdi/*.gcda qt/mubdi/*.gcno qt/mubdi/settings/*.gcda qt/mubdi/settings/*.gcno qt/temp_mubdi_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+mubdi_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libmubdiqt_a_OBJECTS) $(qt_mubdi_qt_OBJECTS) qt/mubdi-qt$(EXEEXT) $(LIBMUBDIQT)
+
+mubdi_qt : qt/mubdi-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

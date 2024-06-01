@@ -1,0 +1,6 @@
+usr/local/bin/mubdi-qt usr/bin
+share/pixmaps/mubdi32.xpm usr/share/pixmaps
+share/pixmaps/mubdi16.xpm usr/share/pixmaps
+share/pixmaps/mubdi128.png usr/share/pixmaps
+debian/mubdi-qt.desktop usr/share/applications
+debian/mubdi-qt.protocol usr/share/kde4/services/

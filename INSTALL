@@ -1,0 +1,13 @@
+Building MuBdI
+
+Use the mubdi script to prepare the build environment.
+
+    ./mubdi.sh
+    ./configure
+    make
+
+Always verify the signatures and checksums.
+
+See doc/build-*.md for instructions on building mubdid,
+the intended-for-services, no-graphical-interface, reference
+implementation of MuBdI.

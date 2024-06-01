@@ -1,0 +1,33 @@
+# /etc/conf.d/mubdid: config file for /etc/init.d/mubdid
+
+# Config file location
+#MUBDID_CONFIGFILE="/etc/mubdi/mubdi.conf"
+
+# What directory to write pidfile to?  (created and owned by $MUBDID_USER)
+#MUBDID_PIDDIR="/var/run/mubdid"
+
+# What filename to give the pidfile
+#MUBDID_PIDFILE="${MUBDID_PIDDIR}/mubdid.pid"
+
+# Where to write mubdid data (be mindful that the blockchain is large)
+#MUBDID_DATADIR="/var/lib/mubdid"
+
+# User and group to own mubdid process
+#MUBDID_USER="mubdi"
+#MUBDID_GROUP="mubdi"
+
+# Path to mubdid executable
+#MUBDID_BIN="/usr/bin/mubdid"
+
+# Nice value to run mubdid under
+#MUBDID_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#MUBDID_OPTS=""
+
+# The timeout in seconds OpenRC will wait for mubdid to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+MUBDID_SIGTERM_TIMEOUT=60

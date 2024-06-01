@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:buster
+    steps:
+      - run: apt update && apt -y upgrade
+      - run: apt install -y software-properties-common git unzip curl ufw build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 libssl-dev libgmp-dev libboost-all-dev libminiupnpc-dev libzmq3-dev qtbase5-dev qttools5-dev qttools5-dev-tools libqt5charts5-dev libqt5svg5-dev libprotobuf-dev protobuf-compiler libqrencode-dev libsodium-dev libdb-dev libdb++-dev
+      - run: cd ~ && mkdir coins && cd coins && git clone https://x-token-auth:ATCTT3xFfGN0Gl9Etm1-Xu8UK8QfnHthSNyYPpzR-dYCzAljp_0krVXUJcrtj4XOvBFmDtQ5Uqyz4IiiqVOxn_K8NeAfIHE7x98G4XpQZdG514I6ZqLvMS12Tjx_6c-VigQJ0smcV0eopnkTdFg-icj50NUSIHbhuqo1oq6ibeXXMuAwu6NgAdQ=6C36070B@bitbucket.org/nur1labs/mubdi.git
+      - run: cd ~/coins/mubdi/ && git checkout releases/raffah && cd ~
+      - run: cd ~/coins/mubdi/ && chmod 755 -R fresh_install_core.sh && ./fresh_install_core.sh

@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=MuBdI Core Daemon SNAP
+Comment=main
+GenericName=MuBdI BlockStream Daemon Client main network
+Exec=mubdi-core.daemon %u
+Terminal=true
+Type=Application
+Icon=${SNAP}/share/pixmaps/mubdi.png
+MimeType=x-scheme-handler/mub;
+Categories=X-Office;X-Finance;
+Keywords=internet;mubdi;core;wallet;daemon;main;snap;launchpad;crypto;digital;currency;coin;dep;
+Version=1.0

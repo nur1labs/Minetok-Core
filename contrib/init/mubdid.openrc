@@ -1,0 +1,92 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout
+#
+if [ -d "/var/lib/mubdi/.mubdi" ]; then
+	MUBDID_DEFAULT_DATADIR="/var/lib/mubdi/.mubdi"
+else
+	MUBDID_DEFAULT_DATADIR="/var/lib/mubdid"
+fi
+
+MUBDID_CONFIGFILE=${MUBDID_CONFIGFILE:-/etc/mubdi/mubdi.conf}
+MUBDID_PIDDIR=${MUBDID_PIDDIR:-/var/run/mubdid}
+MUBDID_PIDFILE=${MUBDID_PIDFILE:-${MUBDID_PIDDIR}/mubdid.pid}
+MUBDID_DATADIR=${MUBDID_DATADIR:-${MUBDID_DEFAULT_DATADIR}}
+MUBDID_USER=${MUBDID_USER:-${MUBDI_USER:-mubdi}
+MUBDID_GROUP=${MUBDID_GROUP:-mubdi}
+MUBDID_BIN=${MUBDID_BIN:-/usr/bin/mubdid}
+MUBDID_NICE=${MUBDID_NICE:-${NICELEVEL:-0}}
+MUBDID_OPTS="${MUBDID_OPTS:-${MUBDI_OPTS}}"
+
+name="MuBdI Core Daemon"
+description="MuBdI crypto-currency p2p network daemon"
+
+command="/usr/bin/mubdid"
+command_args="-pid=\"${MUBDID_PIDFILE}\" \
+		-conf=\"${MUBDID_CONFIGFILE}\" \
+		-datadir=\"${MUBDID_DATADIR}\" \
+		-daemon \
+		${MUBDID_OPTS}"
+
+required_files="${MUBDID_CONFIGFILE}"
+start_stop_daemon_args="-u ${MUBDID_USER} \
+			-N ${MUBDID_NICE} -w 2000"
+pidfile="${MUBDID_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${MUBDID_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${MUBDID_USER}:${MUBDID_GROUP}" \
+	"${MUBDID_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${MUBDID_USER}:${MUBDID_GROUP}" \
+	"${MUBDID_PIDDIR}"
+
+	checkpath -f \
+	-o ${MUBDID_USER}:${MUBDID_GROUP} \
+	-m 0660 \
+	${MUBDID_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${MUBDID_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run mubdid."
+		eerror "The setting must appear in ${MUBDID_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"MuBdI Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}
