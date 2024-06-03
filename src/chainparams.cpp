@@ -188,8 +188,6 @@ public:
         // Note that of those with the service bits flag, most only support a subset of possible options
         vSeeds.emplace_back("45.76.8.103", true);            // seed-main
         vSeeds.emplace_back("seed07.urcoin.cc", false);      // seed-second
-        vSeeds.emplace_back("149.28.45.189", false);         // seed-third
-        vSeeds.emplace_back("149.28.235.170", false);        // seed-fourth
         vSeeds.emplace_back("92.205.236.136", false);        // seed-fifth
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 110);      // m
