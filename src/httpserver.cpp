@@ -622,6 +622,7 @@ CService HTTPRequest::GetPeer()
         const char* address = "";
         uint16_t port = 0;
         evhttp_connection_get_peer(con, (char**)&address, &port);
+        // old version using evhttp_connection_get_peer(con, (const char**)&address, &port); this even using at old one machine
         peer = LookupNumeric(address, port);
     }
     return peer;
