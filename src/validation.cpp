@@ -804,12 +804,8 @@ CAmount GetBlockValue(int nHeight)
     if (Params().IsRegTestNet()) {
         return 250 * COIN;
     }
-    if (nHeight < 2) {
+    if (nHeight < 5) {
         return 1 * COIN;
-    } else if (nHeight < 5) {
-        return 1 * COIN;
-    } else if (nHeight == 5) {
-        return 0.01 * COIN;
     } else if (nHeight > 5) {
         return 0.01 * COIN;
     }
