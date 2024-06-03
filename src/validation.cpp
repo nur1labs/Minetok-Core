@@ -805,11 +805,11 @@ CAmount GetBlockValue(int nHeight)
         return 250 * COIN;
     }
     if (nHeight < 2) {
-        return Params().GetConsensus().AnchorSupply * COIN;
+        return 1 * COIN;
     } else if (nHeight < 5) {
         return 1 * COIN;
     } else if (nHeight == 5) {
-        return Params().GetConsensus().Premine * COIN;
+        return 0.01 * COIN;
     } else if (nHeight > 5) {
         return 0.01 * COIN;
     }

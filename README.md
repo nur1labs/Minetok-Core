@@ -17,14 +17,14 @@ MBASS Signed On New Policy(commited 4c89076) As The Platform For All System OutR
 
 MuBdI become transform From Artificial Works to Core Artificial Works or called MBASS(MuBdI BlockStream Artificial Symatic System)(commited f0e22db)
 
-there is directory tree below : 
+there is directory tree below :
 
 1. builder : place installer MBASS Engine.
 2. client  : place updates client MBASS Engine[DEPRECATED].
 3. core : code base for MBASS like devices core to wallet[no need soon as we have many repos]. here HardFork settings too.
 4. .circleci : this for expert of the core developer only.
 
-Repos Structure : 
+Repos Structure :
 
 1. release/core             : This Main Final For Updates.
 2. hotfix/upgrade           : This Development Team Work(Core).
@@ -84,27 +84,91 @@ listed nodes developement tags(builder/nametag_install.sh).
 | QT 5.10     | OK[No Bug/Glitch]                                  |
 | QT 5.11     | OK[No Bug/Glitch]                                  |
 
-# Network(MOVED) ##
+# Specification ##
 
-[Resources And Development](http://192.168.0.187/mediawiki/index.php?title=Resources_%26_Development)
+Name : MineTok
 
-# Main Network Description(MOVED) ##
+Ticker : MTK
 
-[Blockstream](http://192.168.0.187/mediawiki/index.php?title=Blockstream)
+Supply : 1.500.000 MTK
 
-# Build Status(MOVED) ##
+Pre-Sale : 100.000 MTK
 
-[Resources And Development](http://192.168.0.187/mediawiki/index.php?title=Resources_%26_Development)
+Bountry And Reward : 1.000 MTK
 
-# BlockStream Status(MOVED) ##
+AirDrop : 500 MTK
 
-[Blockstream](http://192.168.0.187/mediawiki/index.php?title=Blockstream)
+ICO : Not Yet
 
-*MuB03 will be announce launch still on plan
+PoW : 499k Blocks
 
-Chain Status(moved)
+PoS : Active after 500k Blocks
 
-[Resources And Development](http://192.168.0.187/mediawiki/index.php?title=Resources_%26_Development)
+Block Reward : 0.001
+
+Masternode : Enable
+
+Masternode Collateral : 1.000 MTK
+
+SuperNode : Enable
+
+DEX : Soon
+
+PEG : Diamond Price Real
+
+Contact : https://t.me/SoraDv
+
+# Installation ##
+
+Clone this by
+
+```
+gh repo clone MineTokNetwork/MineTok-Core
+```
+
+Install Plugin All below
+
+```
+sudo apt install -y software-properties-common net-tools build-essential >/dev/null 2>&1
+echo -e "Installing required packages, it may take some time to finish.${NC}"
+sudo apt install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" git ufw curl >/dev/null 2>&1
+sudo apt install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" libtool autotools-dev autoconf pkg-config automake libssl-dev libgmp-dev libboost-all-dev >/dev/null 2>&1
+sudo apt install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" libminiupnpc-dev libzmq3-dev qtbase5-dev qttools5-dev qttools5-dev-tools libqt5charts5-dev libqt5svg5-dev libprotobuf-dev protobuf-compiler libqrencode-dev >/dev/null 2>&1
+sudo apt install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" cargo libsodium-dev >/dev/null 2>&1
+#libevent
+git clone https://github.com/libevent/libevent
+cd libevent
+./autogen.sh && ./configure && sudo make install && cd ~
+#libzmq
+git clone https://github.com/zeromq/libzmq
+cd libzmq
+./autogen.sh && ./configure && sudo make install && cd ~
+#db
+sudo apt install libdb-dev libdb++-dev -y
+```
+
+Then Running this
+
+```
+#chmod
+chmod 755 -R share/genbuild.sh && chmod 755 -R depends/config.guess && chmod 755 -R depends/config.sub
+#main
+./mubdi.sh && ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" --with-incompatible-bdb --disable-tests --without-gui --enable-mining-rpc && make && sudo make install
+```
+
+# HOW TO MINE ##
+
+Running Terminal/Console/CMD
+
+```
+mtkd -daemon
+mtk-cli setgenerate true
+```
+
+Running QT
+
+- Go to settings > console
+- wrote same setgenerate true
 
 # DEVELOPMENT TAGS ##
 
